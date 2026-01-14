@@ -1,0 +1,532 @@
+        /* ========================================
+           基本設定
+           ======================================== */
+        * {
+            /* すべての要素(*はワイルドカード)に適用 */
+            margin: 0;  /* 外側の余白をゼロに（デフォルトの余白をリセット） */
+            padding: 0;  /* 内側の余白をゼロに（デフォルトの余白をリセット） */
+            box-sizing: border-box;  /* widthとheightにpaddingとborderを含める（計算しやすくなる） */
+        }
+
+        body {
+            /* ページ全体のbodyタグに適用 */
+            font-family: 'Segoe UI', sans-serif;  /* フォントの種類を指定 */
+            line-height: 1.8;  /* 行の高さを1.8倍に（読みやすくなる） */
+            color: #333;  /* 文字色を濃いグレーに */
+            background: #f5f5f5;  /* 背景色を薄いグレーに */
+        }
+
+        /* ========================================
+           セクション1: テキストハイライト効果
+           ======================================== */
+        .section {
+            /* 各セクションの共通スタイル */
+            padding: 60px 20px;  /* 上下に60px、左右に20pxの内側余白を設定 */
+            max-width: 1200px;  /* 最大幅を1200pxに制限（大画面で広がりすぎない） */
+            margin: 0 auto;  /* 上下0、左右autoで中央に配置 */
+        }
+
+        .section-title {
+            /* セクションのタイトル */
+            font-size: 2rem;  /* フォントサイズを2倍に（1rem=16pxなので32px） */
+            margin-bottom: 30px;  /* 下に30pxの外側余白 */
+            text-align: center;  /* 文字を中央揃え */
+            color: #2c3e50;  /* 濃い青灰色 */
+        }
+
+
+        /* グラデーションハイライト（マーカー風） */
+        /* linear-gradientはブラウザ上でhover時のtransitionでじわじわ変化ができないので、
+        　　2つのグラデーションを重ねて、透明度を変化させることにした。 */
+
+        .highlight-gradient {
+            position: relative;
+            padding: 0 4px;
+            z-index: 1;
+        }
+
+        .highlight-gradient::before {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 80%;
+            background: linear-gradient(transparent 60%, #ffeb3b 60%);
+            z-index: -1;
+            transition: opacity 1s ease;
+            opacity: 1;
+        }
+
+        .highlight-gradient::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 80%;
+            background: linear-gradient(transparent 40%, #ffc107 40%);
+            z-index: -1;
+            opacity: 0;
+            transition: opacity 1s ease;
+        }
+
+        .highlight-gradient:hover::before {
+            opacity: 0;
+        }
+
+        .highlight-gradient:hover::after {
+            opacity: 1;
+        }
+
+
+        /* 画面が読み込まれたときにハイライトのアニメーション */
+        .highlight-anime{
+            position: relative;
+            padding: 0 4px;
+            z-index: 1;
+        }
+
+        .highlight-anime::before{
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            height: 150%;
+            background: linear-gradient(transparent 60%, #ffeb3b 60%);
+            z-index: -1;
+            /* 左から右へのアニメーション */
+            width: 0;  /* 初期状態は幅0 */
+            animation: slideRight 2s ease forwards;  /* 2秒かけて左から右へ */
+            /* 応用: 遅延させて表示するとき（1秒待ってから2秒かけて表示）は下記 */
+            /* animation: slideRight 2s ease 1s forwards; */
+        }
+
+        @keyframes slideRight {
+            from { width: 0; }  /* 開始: 幅0 */
+            to { width: 100%; }  /* 終了: 幅100% */
+        }
+
+
+        /* アンダーラインアニメーション */
+        .highlight-underline {
+            position: relative;  /* 相対位置指定（::afterの位置基準になる） */
+            display: inline-block;  /* インラインブロック要素に（幅を持つが横並びになる） */
+            color: #2196f3;  /* 青色の文字 */
+            text-decoration: none;  /* リンクの下線を消す */
+            font-weight: bold;  /* 太字にする */
+        }
+
+        .highlight-underline::after {
+            /* ::afterは要素の後ろに擬似要素を追加 */
+            content: '';  /* 内容は空（線を描くだけ） */
+            position: absolute;  /* 絶対位置指定（親要素を基準に配置） */
+            bottom: -2px;  /* 下から-2pxの位置（文字の少し下） */
+            left: 0;  /* 左端から開始 */
+            width: 0;  /* 初期状態は幅0（見えない） */
+            height: 3px;  /* 高さ3px（線の太さ） */
+            background: #2196f3;  /* 青色の線 */
+            transition: width 1.4s ease;  /* 幅を0.4秒かけて滑らかに変化 */
+        }
+
+        .highlight-underline:hover::after {
+            /* マウスを乗せたとき、::after擬似要素の幅を変更 */
+            width: 100%;  /* 幅を100%に（左から右へ線が伸びる） */
+        }
+
+
+
+
+        .underline-anime {
+            position: relative;
+            display: inline-block;
+            color: #2196f3;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        .underline-anime::after {
+            content: '';
+            position: absolute;
+            bottom: -2px;
+            left: 0;
+            height: 3px;
+            background: #2196f3;
+            /* 左から右へのアニメーション */
+            width: 0;  /* 初期状態は幅0 */
+            animation: slideRight 2s ease forwards;  /* 2秒かけて左から右へ */
+        }
+
+        @keyframes slideRight {
+            from { width: 0; }
+            to { width: 100%; }
+        }
+
+
+
+        /* タイプライター風アニメーション */
+        .typewriter {
+            display: inline-block;  /* インラインブロック要素に */
+            overflow: hidden;  /* はみ出た部分を隠す（文字が徐々に表示される効果） */
+            border-right: 3px solid #333;  /* 右側に3pxの縦線（カーソルのような効果） */
+            white-space: nowrap;  /* 改行しない（一行で表示） */
+            /* 2つのアニメーションを同時に実行 */
+            animation: typing 3s steps(30) infinite, blink 0.7s step-end infinite;
+            /* typing: 3秒かけて30段階で無限ループ */
+            /* blink: 0.7秒かけてカーソルを点滅、無限ループ */
+        }
+
+        @keyframes typing {
+            /* タイピングアニメーションの定義 */
+            0%, 100% { width: 0; }  /* 開始時と終了時は幅0（見えない） */
+            50% { width: 100%; }  /* 中間で幅100%（全部表示） */
+        }
+
+        @keyframes blink {
+            /* カーソル点滅アニメーションの定義 */
+            50% { border-color: transparent; }  /* 50%の時点で縦線を透明に */
+        }
+
+        .text-content {
+            background: white;  /* 背景色を白に */
+            padding: 30px;  /* 四方に30pxの内側余白 */
+            border-radius: 12px;  /* 角を12pxの半径で丸める */
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);  /* 影: 右に0px、下に4px、ぼかし12px、黒の10%透明 */
+            margin-bottom: 20px;  /* 下に20pxの外側余白 */
+        }
+
+
+
+
+
+
+        
+        /* ========================================
+           セクション2: ボタンのバリエーション
+           ======================================== */
+        .button-grid {
+            /* グリッドレイアウト: 自動的に列を配置 */
+            display: grid;
+            /* 最小250px、最大1fr(等分)の列を必要な数だけ自動配置 */
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;  /* グリッドアイテム間の間隔を20px */
+            margin-top: 30px;  /* 上に30pxの外側余白 */
+        }
+
+        .btn {
+            /* ボタンの基本スタイル */
+            padding: 15px 30px;  /* 上下15px、左右30pxの内側余白 */
+            font-size: 16px;  /* フォントサイズ16px */
+            border: none;  /* 枠線なし */
+            border-radius: 8px;  /* 角を8pxの半径で丸める */
+            cursor: pointer;  /* マウスを乗せたときにポインター（指）の形に */
+            transition: all 0.3s ease;  /* すべてのプロパティを0.3秒かけて滑らかに変化 */
+            font-weight: bold;  /* 太字 */
+        }
+
+        /* グラデーションボタン */
+        .btn-gradient {
+            /* 135度の斜めグラデーション: 紫から濃い紫へ */
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;  /* 文字色を白に */
+            position: relative;  /* 相対位置指定（::beforeの位置基準になる） */
+            overflow: hidden;  /* はみ出た部分を隠す（::beforeが外に出ないように） */
+        }
+
+        .btn-gradient::before {
+            /* ::beforeは要素の前に擬似要素を追加 */
+            content: '';  /* 内容は空 */
+            position: absolute;  /* 絶対位置指定 */
+            top: 0;  /* 上端に配置 */
+            left: -100%;  /* 初期位置は左の外側（見えない） */
+            width: 100%;  /* 幅100% */
+            height: 100%;  /* 高さ100% */
+            /* 逆向きのグラデーション（ホバー時に切り替わる） */
+            background: linear-gradient(135deg, #764ba2 0%, #667eea 100%);
+            transition: left 0.4s ease;  /* left位置を0.4秒かけて滑らかに変化 */
+        }
+
+        .btn-gradient:hover::before {
+            /* マウスを乗せたとき、::before擬似要素を右へスライド */
+            left: 0;  /* 左端に移動（グラデーションが左から右へスライド） */
+        }
+
+        .btn-gradient span {
+            /* ボタン内のテキスト */
+            position: relative;  /* 相対位置指定 */
+            z-index: 1;  /* 重なり順を1に（::beforeの上に表示） */
+        }
+
+        /* 浮き上がるボタン */
+        .btn-float {
+            background: #4caf50;  /* 緑色の背景 */
+            color: white;  /* 文字色を白に */
+            /* 影: 右に0px、下に4px、ぼかし8px、緑の30%透明 */
+            box-shadow: 0 4px 8px rgba(76, 175, 80, 0.3);
+        }
+
+        .btn-float:hover {
+            /* マウスを乗せたとき */
+            transform: translateY(-5px);  /* Y軸方向に-5px移動（上に浮く） */
+            /* 影を大きく濃くする（浮き上がった感じ） */
+            box-shadow: 0 8px 16px rgba(76, 175, 80, 0.4);
+        }
+
+        /* ネオンボタン */
+        .btn-neon {
+            background: transparent;  /* 背景を透明に */
+            color: #00ffff;  /* シアン色の文字 */
+            border: 2px solid #00ffff;  /* 2pxのシアン色の枠線 */
+            text-shadow: 0 0 5px #00ffff;  /* 文字に光彩効果: ぼかし5px */
+            box-shadow: 0 0 10px #00ffff;  /* ボタンに光彩効果: ぼかし10px */
+        }
+
+        .btn-neon:hover {
+            /* マウスを乗せたとき */
+            background: #00ffff;  /* 背景をシアン色に */
+            color: #000;  /* 文字色を黒に */
+            text-shadow: none;  /* 文字の光彩を消す */
+            /* 光彩を強くする（2つの影を重ねる） */
+            box-shadow: 0 0 20px #00ffff, 0 0 30px #00ffff;
+        }
+
+        /* ========================================
+           セクション3: カード・サムネイル
+           ======================================== */
+        .card-grid {
+            /* グリッドレイアウト */
+            display: grid;
+            /* 最小280px、最大1fr(等分)の列を必要な数だけ自動配置 */
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 30px;  /* グリッドアイテム間の間隔を30px */
+            margin-top: 30px;  /* 上に30pxの外側余白 */
+        }
+
+        .card {
+            /* カードの基本スタイル */
+            background: white;  /* 背景色を白に */
+            border-radius: 16px;  /* 角を16pxの半径で丸める */
+            overflow: hidden;  /* はみ出た部分を隠す（角の丸みを画像にも適用） */
+            /* 影: 右に0px、下に4px、ぼかし12px、黒の10%透明 */
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+            transition: all 0.4s ease;  /* すべてのプロパティを0.4秒かけて滑らかに変化 */
+            cursor: pointer;  /* マウスを乗せたときにポインター（指）の形に */
+        }
+
+        .card:hover {
+            /* マウスを乗せたとき */
+            /* transform: 複数の変形を同時に適用 */
+            /* translateY(-10px): Y軸方向に-10px移動（上に浮く） */
+            /* scale(1.02): 1.02倍に拡大（2%大きくなる） */
+            transform: translateY(-10px) scale(1.02);
+            /* 影を大きく濃くする（浮き上がった感じ） */
+            box-shadow: 0 12px 24px rgba(0,0,0,0.2);
+        }
+
+        .card-image {
+            /* カードの画像部分 */
+            width: 100%;  /* 幅100% */
+            height: 180px;  /* 高さ180px固定 */
+            /* グラデーション背景 */
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            position: relative;  /* 相対位置指定（::afterの位置基準になる） */
+            overflow: hidden;  /* はみ出た部分を隠す */
+        }
+
+        .card-image::after {
+            /* ::after擬似要素で絵文字を追加 */
+            content: '🎨';  /* 絵文字を内容として表示 */
+            font-size: 60px;  /* フォントサイズ60px */
+            position: absolute;  /* 絶対位置指定 */
+            top: 50%;  /* 上から50%の位置 */
+            left: 50%;  /* 左から50%の位置 */
+            /* translate: 自分自身のサイズを基準に移動（中央に配置） */
+            transform: translate(-50%, -50%);
+            opacity: 0.3;  /* 透明度30%（薄く表示） */
+        }
+
+        .card-content {
+            /* カードのテキスト部分 */
+            padding: 20px;  /* 四方に20pxの内側余白 */
+        }
+
+        .card-title {
+            /* カードのタイトル */
+            font-size: 1.3rem;  /* フォントサイズ1.3倍 */
+            margin-bottom: 10px;  /* 下に10pxの外側余白 */
+            color: #2c3e50;  /* 濃い青灰色 */
+        }
+
+        .card-text {
+            /* カードの本文 */
+            color: #666;  /* グレーの文字色 */
+            font-size: 0.95rem;  /* フォントサイズ0.95倍（少し小さめ） */
+        }
+
+        /* ========================================
+           セクション4: タグのデザイン
+           ======================================== */
+        .tags {
+            /* フレックスボックスレイアウト */
+            display: flex;
+            flex-wrap: wrap;  /* 幅が足りなくなったら折り返す */
+            gap: 12px;  /* アイテム間の間隔を12px */
+            margin-top: 30px;  /* 上に30pxの外側余白 */
+        }
+
+        .tag {
+            /* タグの基本スタイル */
+            padding: 8px 16px;  /* 上下8px、左右16pxの内側余白 */
+            border-radius: 20px;  /* 角を20pxの半径で丸める（カプセル型） */
+            font-size: 14px;  /* フォントサイズ14px */
+            cursor: pointer;  /* マウスを乗せたときにポインター（指）の形に */
+            transition: all 0.3s ease;  /* すべてのプロパティを0.3秒かけて滑らかに変化 */
+        }
+
+        .tag-blue {
+            /* 青いタグ */
+            background: #e3f2fd;  /* 薄い青色の背景 */
+            color: #1976d2;  /* 濃い青色の文字 */
+        }
+
+        .tag-blue:hover {
+            /* マウスを乗せたとき */
+            background: #1976d2;  /* 背景を濃い青色に */
+            color: white;  /* 文字を白色に */
+            transform: scale(1.1);  /* 1.1倍に拡大（10%大きくなる） */
+        }
+
+        .tag-green {
+            /* 緑のタグ */
+            background: #e8f5e9;  /* 薄い緑色の背景 */
+            color: #388e3c;  /* 濃い緑色の文字 */
+        }
+
+        .tag-green:hover {
+            /* マウスを乗せたとき */
+            background: #388e3c;  /* 背景を濃い緑色に */
+            color: white;  /* 文字を白色に */
+            transform: scale(1.1);  /* 1.1倍に拡大 */
+        }
+
+        .tag-purple {
+            /* 紫のタグ */
+            background: #f3e5f5;  /* 薄い紫色の背景 */
+            color: #7b1fa2;  /* 濃い紫色の文字 */
+        }
+
+        .tag-purple:hover {
+            /* マウスを乗せたとき */
+            background: #7b1fa2;  /* 背景を濃い紫色に */
+            color: white;  /* 文字を白色に */
+            transform: scale(1.1);  /* 1.1倍に拡大 */
+        }
+
+        /* ========================================
+           セクション5: 動く背景
+           ======================================== */
+        .animated-bg {
+            /* 4色のグラデーション: -45度の角度で配置 */
+            background: linear-gradient(-45deg, #ee7752, #e73c7e, #23a6d5, #23d5ab);
+            background-size: 400% 400%;  /* 背景を400%に拡大（動かす余地を作る） */
+            /* gradientアニメーションを15秒かけて無限にループ、滑らかに */
+            animation: gradient 15s ease infinite;
+            padding: 80px 20px;  /* 上下80px、左右20pxの内側余白 */
+            text-align: center;  /* 文字を中央揃え */
+            color: white;  /* 文字色を白に */
+            position: relative;  /* 相対位置指定（浮遊要素の位置基準になる） */
+            overflow: hidden;  /* はみ出た部分を隠す */
+        }
+
+        @keyframes gradient {
+            /* グラデーションアニメーションの定義 */
+            0% { background-position: 0% 50%; }  /* 開始位置 */
+            50% { background-position: 100% 50%; }  /* 中間位置（右へ移動） */
+            100% { background-position: 0% 50%; }  /* 終了位置（元に戻る） */
+            /* これにより背景が左右にゆっくり動く */
+        }
+
+        /* 浮遊する雲のような要素 */
+        .floating-shape {
+            position: absolute;  /* 絶対位置指定 */
+            border-radius: 50%;  /* 角を50%の半径で丸める（完全な円） */
+            background: rgba(255, 255, 255, 0.1);  /* 白色、透明度10%（薄い円） */
+            /* floatアニメーションを6秒かけて無限にループ、滑らかに */
+            animation: float 6s ease-in-out infinite;
+        }
+
+        .shape1 {
+            /* 浮遊要素1 */
+            width: 100px;  /* 幅100px */
+            height: 100px;  /* 高さ100px */
+            top: 20%;  /* 上から20%の位置 */
+            left: 10%;  /* 左から10%の位置 */
+            animation-delay: 0s;  /* アニメーション開始遅延なし */
+        }
+
+        .shape2 {
+            /* 浮遊要素2 */
+            width: 150px;  /* 幅150px */
+            height: 150px;  /* 高さ150px */
+            top: 50%;  /* 上から50%の位置 */
+            right: 15%;  /* 右から15%の位置 */
+            animation-delay: 2s;  /* アニメーション開始を2秒遅らせる */
+        }
+
+        .shape3 {
+            /* 浮遊要素3 */
+            width: 80px;  /* 幅80px */
+            height: 80px;  /* 高さ80px */
+            bottom: 20%;  /* 下から20%の位置 */
+            left: 60%;  /* 左から60%の位置 */
+            animation-delay: 4s;  /* アニメーション開始を4秒遅らせる */
+        }
+
+        @keyframes float {
+            /* 浮遊アニメーションの定義 */
+            0%, 100% { 
+                /* 開始と終了: 元の位置 */
+                transform: translateY(0) translateX(0); 
+            }
+            25% { 
+                /* 25%地点: 上に20px、右に10px移動 */
+                transform: translateY(-20px) translateX(10px); 
+            }
+            50% { 
+                /* 50%地点: 元の高さ、右に20px移動 */
+                transform: translateY(0) translateX(20px); 
+            }
+            75% { 
+                /* 75%地点: 下に20px、右に10px移動 */
+                transform: translateY(20px) translateX(10px); 
+            }
+            /* これにより雲のようにふわふわと動く */
+        }
+
+        .animated-bg h2 {
+            /* 動く背景内のタイトル */
+            font-size: 3rem;  /* フォントサイズを3倍に */
+            margin-bottom: 20px;  /* 下に20pxの外側余白 */
+            /* 文字に影: 右に2px、下に2px、ぼかし4px、黒の30%透明 */
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+            position: relative;  /* 相対位置指定 */
+            z-index: 1;  /* 重なり順を1に（浮遊要素の上に表示） */
+        }
+
+        /* ========================================
+           スクロール時のフェードイン効果
+           ======================================== */
+        .fade-in {
+            /* フェードイン前の初期状態 */
+            opacity: 0;  /* 透明度0%（完全に透明、見えない） */
+            transform: translateY(30px);  /* Y軸方向に30px下に移動（下からスライドイン） */
+            /* opacityとtransformを0.6秒かけて滑らかに変化 */
+            transition: opacity 0.6s ease, transform 0.6s ease;
+        }
+
+        .fade-in.visible {
+            /* .visibleクラスが追加されたとき（画面に入ったとき） */
+            opacity: 1;  /* 透明度100%（完全に表示） */
+            transform: translateY(0);  /* 元の位置に戻る */
+            /* これにより下から浮き上がるように表示される */
+        }

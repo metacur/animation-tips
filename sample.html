@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./style.css">
+    <title>CSSテクニックショーケース</title>
+</head>
+
+<body>
+    <!-- セクション1: テキストハイライト -->
+    <div class="section fade-in">
+        <h2 class="section-title">1. テキストハイライト効果</h2>
+        <div class="text-content">
+            <p>
+                この文章には<span class="highlight-gradient">グラデーションのマーカー</span>が使われています。
+                ホバーすると色が変化します。また、
+                <a href="#" class="highlight-underline">アンダーラインアニメーション</a>も
+                実装されています。
+                画面が読み込まれたときに<span class="highlight-anime">アニメーションでハイライト</span>する機能もあります。
+                あと、画面が読み込まれたときに<span class="underline-anime">下線をアニメで表示する</span>こともできます。
+            </p>
+            <p style="margin-top: 20px;">
+                <span class="typewriter">タイプライター風のアニメーション</span>
+            </p>
+        </div>
+    </div>
+
+    <!-- セクション2: ボタン -->
+    <div class="section fade-in">
+        <h2 class="section-title">2. ボタンのバリエーション</h2>
+        <div class="button-grid">
+            <button class="btn btn-gradient"><span>グラデーションボタン</span></button>
+            <button class="btn btn-float">浮き上がるボタン</button>
+            <button class="btn btn-neon">ネオンボタン</button>
+        </div>
+    </div>
+
+    <!-- セクション3: カード -->
+    <div class="section fade-in">
+        <h2 class="section-title">3. カード・サムネイル</h2>
+        <div class="card-grid">
+            <div class="card">
+                <div class="card-image" style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);"></div>
+                <div class="card-content">
+                    <h3 class="card-title">デザインカード 1</h3>
+                    <p class="card-text">ホバーすると浮き上がり、影が拡大します。</p>
+                </div>
+            </div>
+            <div class="card">
+                <div class="card-image" style="background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);"></div>
+                <div class="card-content">
+                    <h3 class="card-title">デザインカード 2</h3>
+                    <p class="card-text">スムーズなトランジションが特徴です。</p>
+                </div>
+            </div>
+            <div class="card">
+                <div class="card-image" style="background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);"></div>
+                <div class="card-content">
+                    <h3 class="card-title">デザインカード 3</h3>
+                    <p class="card-text">レスポンシブ対応のグリッドレイアウト。</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- セクション4: タグ -->
+    <div class="section fade-in">
+        <h2 class="section-title">4. インタラクティブなタグ</h2>
+        <div class="tags">
+            <span class="tag tag-blue">CSS3</span>
+            <span class="tag tag-green">JavaScript</span>
+            <span class="tag tag-purple">HTML5</span>
+            <span class="tag tag-blue">アニメーション</span>
+            <span class="tag tag-green">レスポンシブ</span>
+            <span class="tag tag-purple">モダンデザイン</span>
+        </div>
+    </div>
+
+    <!-- セクション5: 動く背景 -->
+    <div class="animated-bg">
+        <div class="floating-shape shape1"></div>
+        <div class="floating-shape shape2"></div>
+        <div class="floating-shape shape3"></div>
+        <h2>動的なグラデーション背景</h2>
+        <p style="font-size: 1.2rem; position: relative; z-index: 1;">
+            背景が自動的にアニメーションし、<br>
+            浮遊する要素が雲のように動きます
+        </p>
+    </div>
+
+
+    <script src="./script.js"></script>
+</body>
+</html>
