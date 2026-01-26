@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Form Test</title>
+    <!-- jQuery CDN -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        /* 簡単なリセットCSS */
+        * { box-sizing: border-box; }
+        body { font-family: "Helvetica Neue", Arial, "Hiragino Kaku Gothic ProN", "Hiragino Sans", Meiryo, sans-serif; padding: 20px; }
+        .input-wrapper { margin-bottom: 10px; }
+        label { margin-right: 15px; cursor: pointer; }
+    </style>
+</head>
+<body>
+
+    <div id="area-form-input">
+        <h1>入力フォームテスト</h1>
+        
+        <!-- エラーリスト表示エリア (script.js L435) -->
+        <div class="js-error-list" style="display:none;">
+            <ul></ul>
+        </div>
+
+        <form action="#" method="post">
+            <table class="formTable">
+                <tbody>
+                    <!-- ■入力欄1： -->
+                    <tr>
+                        <th>
+                            <div class="item-inner">
+                                <span class="item-text">入力欄1</span>
+                                <span class="js-required">必須</span>
+                            </div>
+                        </th>
+                        <td>
+                            <label><input type="radio" name="c_kenshu" value="5日"> 5日</label>
+                            <label><input type="radio" name="c_kenshu" value="10日"> 10日</label>
+                            <label><input type="radio" name="c_kenshu" value="15日"> 15日</label>
+                            <label><input type="radio" name="c_kenshu" value="20日"> 20日</label>
+                            <label><input type="radio" name="c_kenshu" value="25日"> 25日</label>
+                            <label><input type="radio" name="c_kenshu" value="末日"> 末日</label>
+                            <div class="check-wrapper" style="display:inline-block;">
+                                <label>
+                                    <input type="radio" name="c_kenshu" value="その他" data-check-input="on"> その他
+                                    <input type="text" class="js-nestinput" name="c_kenshu_other_val">
+                                </label>
+                            </div>
+                            <!-- エラー表示エリア -->
+                            <div class="js-error-alert"></div>
+                        </td>
+                    </tr>
+
+                    <!-- ■入力欄2 -->
+                    <tr>
+                        <th>
+                            <div class="item-inner">
+                                <span class="item-text">入力欄2</span>
+                                <span class="js-required">必須</span>
+                            </div>
+                        </th>
+                        <td>
+                            <div class="input-wrapper">
+                                <span>月：</span>
+                                <label><input type="radio" name="c_shiharai_month" value="当月"> 当月</label>
+                                <label><input type="radio" name="c_shiharai_month" value="翌月"> 翌月</label>
+                                <label><input type="radio" name="c_shiharai_month" value="翌々月"> 翌々月</label>
+                                <label><input type="radio" name="c_shiharai_month" value="その他"> その他</label>
+                            </div>
+                            <div class="input-wrapper">
+                                <span>日：</span>
+                                <label><input type="radio" name="c_shiharai_day" value="5日"> 5日</label>
+                                <label><input type="radio" name="c_shiharai_day" value="10日"> 10日</label>
+                                <label><input type="radio" name="c_shiharai_day" value="15日"> 15日</label>
+                                <label><input type="radio" name="c_shiharai_day" value="20日"> 20日</label>
+                                <label><input type="radio" name="c_shiharai_day" value="25日"> 25日</label>
+                                <label><input type="radio" name="c_shiharai_day" value="末日"> 末日</label>
+                                <div class="check-wrapper" style="display:inline-block;">
+                                    <label>
+                                        <input type="radio" name="c_shiharai_day" value="その他" data-check-input="on"> その他
+                                        <input type="number" class="js-nestinput" name="c_shiharai_day_other_val">
+                                    </label>
+                                </div>
+                            </div>
+                            <!-- エラー表示エリア -->
+                            <div class="js-error-alert"></div>
+                        </td>
+                    </tr>
+
+                    <!-- ■入力欄3 -->
+                    <tr>
+                        <th>
+                            <div class="item-inner">
+                                <span class="item-text">入力欄3</span>
+                                <span class="js-required">必須</span>
+                            </div>
+                        </th>
+                        <td>
+                            <div class="input-wrapper">
+                                <label><input type="radio" name="c_joken" value="条件無し"> 条件無し</label>
+                            </div>
+                            <div class="input-wrapper">
+                                <label>
+                                    <input type="radio" name="c_joken" value="取引金額（◯円未満）" data-check-input="on"> 取引金額（
+                                    <input type="number" class="js-nestinput" name="c_joken_under_val"> 円未満）
+                                </label>
+                            </div>
+                            <div class="input-wrapper">
+                                <label>
+                                    <input type="radio" name="c_joken" value="取引金額（□円以上）" data-check-input="on"> 取引金額（
+                                    <input type="number" class="js-nestinput" name="c_joken_over_val"> 円以上）
+                                </label>
+                            </div>
+                            <div class="input-wrapper">
+                                <label><input type="radio" name="c_joken" value="その他"> その他</label>
+                            </div>
+                            <!-- エラー表示エリア -->
+                            <div class="js-error-alert"></div>
+                        </td>
+                    </tr>
+
+                    <!-- ■入力欄4：決済方法 -->
+                    <tr>
+                        <th>
+                            <div class="item-inner">
+                                <span class="item-text">決済方法</span>
+                                <span class="js-required">必須</span>
+                            </div>
+                        </th>
+                        <td>
+                            <label><input type="radio" name="c_kessai" value="銀行振込"> 銀行振込</label>
+                            <label><input type="radio" name="c_kessai" value="手形"> 手形</label>
+                            <label><input type="radio" name="c_kessai" value="でんさい"> でんさい</label>
+                            <label><input type="radio" name="c_kessai" value="期日指定"> 期日指定</label>
+                            <!-- エラー表示エリア -->
+                            <div class="js-error-alert"></div>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <div style="margin-top: 20px; text-align: center;">
+                <button type="button" class="js-sendBtn">確認画面へ</button>
+            </div>
+        </form>
+    </div>
+
+    <!-- 確認画面エリア（script.jsの動作抑制のため存在させるが中身は簡易的） -->
+    <div id="area-form-conf" style="display:none;">
+        <h2>確認画面</h2>
+        <table>
+            <!-- script.jsが値を入れるターゲット -->
+            <tr class="question1"><td><span class="confirm_val"></span></td></tr>
+        </table>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>

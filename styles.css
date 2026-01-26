@@ -1,0 +1,82 @@
+@charset "UTF-8";
+
+/* Form Table Style */
+.formTable {
+    width: 100%;
+    border-collapse: collapse;
+    border: 1px solid #ccc;
+    margin-bottom: 20px;
+}
+
+.formTable th, .formTable td {
+    border: 1px solid #ccc;
+    padding: 15px;
+    vertical-align: top;
+}
+
+.formTable th {
+    background-color: #f9f9f9;
+    width: 200px;
+    text-align: left;
+}
+
+/* 必須・完了ラベル */
+.js-required {
+    display: inline-block;
+    padding: 2px 8px;
+    font-size: 12px;
+    color: #fff;
+    background-color: #ff4d4d; /* 必須：赤 */
+    border-radius: 3px;
+    margin-left: 10px;
+}
+
+.js-required.is-complete {
+    background-color: #5cb85c; /* 完了：緑 */
+}
+
+/* エラーメッセージ */
+.errorTxt {
+    color: #d9534f;
+    font-size: 14px;
+    margin-top: 5px;
+    font-weight: bold;
+}
+
+/* Input Styles */
+input[type="text"], input[type="number"] {
+    padding: 5px;
+    border: 1px solid #ccc;
+    border-radius: 3px;
+}
+
+input:disabled {
+    background-color: #eee;
+    cursor: not-allowed;
+}
+
+.js-sendBtn {
+    padding: 10px 30px;
+    background-color: #337ab7;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+.js-sendBtn:hover {
+    background-color: #286090;
+}
+
+.js-error-list {
+    background: #fdeeee;
+    padding: 10px;
+    border: 1px solid #d9534f;
+    margin-bottom: 20px;
+}
+.js-error-list ul {
+    margin: 0;
+    padding-left: 20px;
+    color: #d9534f;
+}
